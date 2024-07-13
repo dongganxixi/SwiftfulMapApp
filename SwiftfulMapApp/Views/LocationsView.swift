@@ -38,19 +38,28 @@ struct LocationsView: View {
 extension LocationsView {
     private var header: some View{
         VStack {
-            Text(vm.mapLocation.name + ", " + vm.mapLocation.cityName)
-                .font(.title2)
-                .fontWeight(.black)
-                .foregroundStyle(.primary)
-                .frame(height: 55)
-                .frame(maxWidth: .infinity)
-                .overlay(alignment: .leading) {
-                    Image(systemName: "arrow.down")
-                        .font(.headline)
-                        .foregroundStyle(.primary)
-                        .padding()
-                }
-            LocationsListView()
+            Button(action: vm.toggleLocationsList) {
+                Text(vm.mapLocation.name + ", " + vm.mapLocation.cityName)
+                    .font(.title2)
+                    .fontWeight(.black)
+                    .foregroundStyle(Color.primary)
+                    .frame(height: 55)
+                    .frame(maxWidth: .infinity)
+                    .overlay(alignment: .leading) {
+                        Image(systemName: "arrow.down")
+                            .font(.headline)
+                            .foregroundStyle(Color.primary)
+                            .padding()
+                            .rotationEffect(Angle(degrees:
+                                                    vm.showLocatonsList ? 180 : 0
+                                                 ))
+                    }
+            }
+            
+            if vm.showLocatonsList{
+                LocationsListView()
+            }
+            
         }
         .background(.thickMaterial)
         .clipShape(RoundedRectangle(cornerRadius: 10))
